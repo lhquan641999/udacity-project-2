@@ -1,8 +1,10 @@
-import express from 'express';
+
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
+import express, { Router, Request, Response } from 'express';
 
 (async () => {
+
 
   // Init the Express application
   const app = express();
@@ -33,10 +35,21 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   
   // Root Endpoint
   // Displays a simple message to the user
+  // https://images.unsplash.com/photo-1474511320723-9a56873867b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YW5pbWFsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60
   app.get( "/", async ( req, res ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
   
+  app.get( "/filteredimage/", async ( req: Request, res: Response ) => {
+    let { image_url } : { image_url: string} = req.query;
+    let  Img = await filterImageFromURL(image_url) ;
+    if ( !image_url ) {
+      return res.status(404)
+                .send(`URL is required`);
+    }
+    
+    return res.status(200).sendFile(Img , ()=>{});
+  } );
 
   // Start the Server
   app.listen( port, () => {
