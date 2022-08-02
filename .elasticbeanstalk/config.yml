@@ -1,0 +1,20 @@
+branch-defaults:
+  dev:
+    environment: udacity-project-2-dev
+    group_suffix: null
+deploy:
+  artifact: ./www/Archive.zip
+global:
+  application_name: udacity-project-2
+  branch: null
+  default_ec2_keyname: abc
+  default_platform: Node.js 16 running on 64bit Amazon Linux 2
+  default_region: us-west-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  repository: null
+  sc: git
+  workspace_type: Application
